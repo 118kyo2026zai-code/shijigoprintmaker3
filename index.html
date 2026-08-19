@@ -208,18 +208,6 @@ button{
    生徒用メインレイアウト
 ========================================================= */
 
-/*
-   ここが今回の重要ポイント。
-
-   HTMLでは
-   問題 → サイドバー
-   の順になっているので、
-
-   row にすることで
-   問題が左側、サイドバーが右側
-   になります。
-*/
-
 .studentLayout{
 
     width:100%;
@@ -227,7 +215,7 @@ button{
 
     display:flex;
 
-    flex-direction:row;
+    flex-direction:row-reverse;
 
     gap:5mm;
 }
@@ -259,8 +247,8 @@ button{
 
 .sideTitle{
 
-    background:var(--brand);
-    color:#fff;
+    background:var(--brand) !important;
+    color:#fff !important;
 
     width:16mm;
 
@@ -288,8 +276,8 @@ button{
 
 .sideLevel{
 
-    background:var(--brand);
-    color:#fff;
+    background:var(--brand) !important;
+    color:#fff !important;
 
     width:16mm;
 
@@ -344,7 +332,11 @@ button{
 
     min-height:42mm;
 
-    border-right:1px solid #333;
+    /*
+      以前ここにあった
+      border-right:1px solid #333;
+      を削除
+    */
 
     writing-mode:vertical-rl;
 }
@@ -438,7 +430,7 @@ button{
 
 
 /* =========================================================
-   1・2の紫色の番号
+   1・2の紫いろの番号
 ========================================================= */
 
 .problemNumber{
@@ -446,8 +438,8 @@ button{
     width:10mm;
     height:10mm;
 
-    background:var(--brand);
-    color:#fff;
+    background:var(--brand) !important;
+    color:#fff !important;
 
     border-radius:4px;
 
@@ -1053,17 +1045,16 @@ button{
 </div>
 
 
-
 <!-- =====================================================
      印刷領域
-===================================================== -->
+========================================================= -->
 
 <div class="printArea">
 
 
     <!-- ===============================
          生徒用
-    ================================ -->
+    ================================= -->
 
     <div class="studentPage">
 
@@ -1121,10 +1112,9 @@ button{
     </div>
 
 
-
     <!-- ===============================
          教師用
-    ================================ -->
+    ================================= -->
 
     <div class="teacherPage">
 
@@ -1159,7 +1149,6 @@ button{
     </div>
 
 </div>
-
 
 
 <script>
