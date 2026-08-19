@@ -12,10 +12,6 @@
 
 <style>
 
-/* =========================================================
-   色
-========================================================= */
-
 :root{
     --brand:#7B3FC6;
     --brand-dark:#5A258F;
@@ -159,7 +155,7 @@ button{
 
 .makeButton{
     background:var(--brand);
-    color:#fff;
+    color:white;
 }
 
 .sampleButton{
@@ -169,7 +165,7 @@ button{
 
 .printButton{
     background:#e88a32;
-    color:#fff;
+    color:white;
 }
 
 
@@ -198,7 +194,7 @@ button{
     padding:
         8mm
         10mm
-        7mm
+        8mm
         10mm;
 
     overflow:hidden;
@@ -206,38 +202,71 @@ button{
 
 
 /* =========================================================
-   ヘッダー
-   タイトル・難・名前を横一列にする
+   上部ヘッダー
+   タイトル・レベル・名前を配置
 ========================================================= */
 
 .studentHeader{
 
-    height:18mm;
+    height:26mm;
 
     display:flex;
-    align-items:center;
 
-    border-bottom:2px solid var(--brand);
-
-    margin-bottom:4mm;
+    align-items:flex-start;
 
     position:relative;
+
+    margin-bottom:3mm;
 }
 
 
-/* 左側の余白 */
+/* ---------------------------------------------------------
+   タイトル
+--------------------------------------------------------- */
 
-.headerSpacer{
-    width:8mm;
-    flex:none;
+.brand{
+    display:none;
 }
-
-
-/* タイトル */
 
 .titleArea{
 
-    flex:1;
+    display:flex;
+
+    flex-direction:row;
+
+    align-items:center;
+
+    gap:5mm;
+
+    height:24mm;
+
+    margin-left:4mm;
+}
+
+
+/* 指示語特訓プリント */
+
+.mainTitle{
+
+    background:var(--brand) !important;
+
+    color:#ffffff !important;
+
+    writing-mode:vertical-rl;
+
+    text-orientation:mixed;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    padding:5px 7px;
+
+    border-radius:5px;
+
+    height:24mm;
 
     display:flex;
 
@@ -245,121 +274,102 @@ button{
 
     justify-content:center;
 
-    gap:5mm;
-
-    min-width:0;
-}
-
-
-/* =========================================================
-   タイトル
-========================================================= */
-
-.mainTitle{
-
-    background:var(--brand) !important;
-    color:#fff !important;
-
-    font-family:
-        "UD デジタル 教科書体",
-        "UD Digi Kyokasho",
-        "教科書体",
-        "Yu Kyokasho",
-        "Noto Serif JP",
-        serif;
-
-    font-size:24px;
-
-    font-weight:bold;
-
-    letter-spacing:1px;
-
-    padding:5px 14px;
-
-    border-radius:5px;
-
     white-space:nowrap;
 
     box-shadow:0 2px 0 rgba(0,0,0,.08);
 }
 
 
-/* =========================================================
-   難易度
-========================================================= */
+/* ---------------------------------------------------------
+   レベル
+--------------------------------------------------------- */
 
 .levelBadge{
 
     background:var(--brand) !important;
-    color:#fff !important;
 
-    font-family:
-        "UD デジタル 教科書体",
-        "UD Digi Kyokasho",
-        "教科書体",
-        "Yu Kyokasho",
-        "Noto Serif JP",
-        serif;
+    color:#ffffff !important;
 
-    padding:5px 11px;
+    writing-mode:vertical-rl;
 
-    border-radius:5px;
+    text-orientation:mixed;
 
-    font-size:15px;
+    padding:5px 6px;
 
-    font-weight:bold;
-
-    white-space:nowrap;
-
-    display:inline-block;
-}
-
-
-/* =========================================================
-   名前
-========================================================= */
-
-.nameArea{
-
-    width:72mm;
-
-    flex:none;
-
-    text-align:left;
-
-    font-family:
-        "UD デジタル 教科書体",
-        "UD Digi Kyokasho",
-        "教科書体",
-        "Yu Kyokasho",
-        "Noto Serif JP",
-        serif;
+    border-radius:4px;
 
     font-size:13px;
 
-    color:#333 !important;
+    font-weight:bold;
+
+    height:20mm;
+
+    min-width:9mm;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    white-space:nowrap;
+}
+
+
+/* ---------------------------------------------------------
+   名前
+   右端に1列で縦書き
+--------------------------------------------------------- */
+
+.nameArea{
+
+    position:absolute;
+
+    right:5mm;
+
+    top:1mm;
+
+    width:12mm;
+
+    height:24mm;
+
+    writing-mode:vertical-rl;
+
+    text-orientation:mixed;
+
+    font-size:13px;
 
     font-weight:bold;
 
+    color:#333;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
     white-space:nowrap;
 
-    padding-left:3mm;
+    letter-spacing:1px;
 }
 
 
 /* =========================================================
-   生徒用問題
+   問題エリア
 ========================================================= */
 
 .studentProblems{
 
-    height:168mm;
+    height:169mm;
 
     display:flex;
 
     flex-direction:row-reverse;
 
-    gap:6mm;
+    gap:7mm;
+
+    padding-right:15mm;
 }
 
 
@@ -369,9 +379,9 @@ button{
 
 .studentProblem{
 
-    width:calc((100% - 6mm) / 2);
+    width:calc((100% - 7mm) / 2);
 
-    height:168mm;
+    height:169mm;
 
     border:1px solid #cdbfe0;
 
@@ -382,19 +392,16 @@ button{
     overflow:hidden;
 
     background:#fff;
-
-    min-width:0;
 }
 
 
 /* =========================================================
-   問題番号部分
-   1・2は横書き、中央配置
+   問題番号ヘッダー
 ========================================================= */
 
 .problemHeader{
 
-    height:14mm;
+    height:15mm;
 
     display:flex;
 
@@ -402,15 +409,15 @@ button{
 
     justify-content:center;
 
-    padding:0 4mm;
+    padding:0 5mm;
 
     border-bottom:1px solid #d8cee2;
 }
 
 
-/* =========================================================
-   問題番号
-========================================================= */
+/* ---------------------------------------------------------
+   1・2の紫いろの四角
+--------------------------------------------------------- */
 
 .problemNumber{
 
@@ -418,9 +425,9 @@ button{
 
     height:10mm;
 
-    background:var(--brand) !important;
+    background:var(--brand);
 
-    color:#fff !important;
+    color:#fff;
 
     border-radius:4px;
 
@@ -430,29 +437,22 @@ button{
 
     justify-content:center;
 
-    font-family:
-        "UD デジタル 教科書体",
-        "UD Digi Kyokasho",
-        "教科書体",
-        "Yu Kyokasho",
-        "Noto Serif JP",
-        serif;
-
     font-size:17px;
 
     font-weight:bold;
 
-    line-height:1;
-
-    writing-mode:horizontal-tb;
-
-    text-orientation:mixed;
+    margin:0;
 
     flex:none;
 }
 
 
-/* 「指示語を読み取ろう」は削除 */
+/* 「指示語を読み取ろう」は削除したため
+   problemHeaderText は表示しない */
+
+.problemHeaderText{
+    display:none;
+}
 
 
 /* =========================================================
@@ -468,8 +468,6 @@ button{
     flex-direction:row-reverse;
 
     padding:4mm 4mm 5mm 4mm;
-
-    min-width:0;
 }
 
 
@@ -479,7 +477,7 @@ button{
 
 .bodyArea{
 
-    width:50%;
+    width:48%;
 
     border-left:1px dotted #b9a8cc;
 
@@ -494,18 +492,13 @@ button{
     min-width:0;
 }
 
-
-/* =========================================================
-   「本文」
-========================================================= */
-
 .sectionHeading{
 
     flex:0 0 auto;
 
     display:inline-block;
 
-    color:var(--brand) !important;
+    color:var(--brand);
 
     font-size:11px;
 
@@ -518,16 +511,7 @@ button{
     padding:2px 9px;
 
     margin-bottom:3mm;
-
-    writing-mode:horizontal-tb;
-
-    white-space:nowrap;
 }
-
-
-/* =========================================================
-   本文縦書き
-========================================================= */
 
 .verticalText{
 
@@ -586,7 +570,6 @@ button{
     min-width:0;
 }
 
-
 .questionText{
 
     flex:1;
@@ -631,7 +614,7 @@ button{
 
 .answerArea{
 
-    width:20%;
+    width:22%;
 
     display:flex;
 
@@ -640,13 +623,11 @@ button{
     align-items:center;
 
     padding-left:3mm;
-
-    min-width:0;
 }
 
 .answerHeading{
 
-    color:var(--brand) !important;
+    color:var(--brand);
 
     font-size:11px;
 
@@ -701,37 +682,24 @@ button{
 }
 
 .answerColumn:last-child .answerCell{
+
     border-right:0;
 }
 
 .answerCell:last-child{
+
     border-bottom:0;
 }
 
 
 /* =========================================================
-   著作権表示
+   生徒用フッター
+   不要なので非表示
 ========================================================= */
 
-.copyright{
+.studentFooter{
 
-    position:absolute;
-
-    right:10mm;
-
-    bottom:2mm;
-
-    color:#999;
-
-    font-size:6.5px;
-
-    font-family:
-        "UD デジタル 教科書体",
-        "UD Digi Kyokasho",
-        "教科書体",
-        "Yu Kyokasho",
-        "Noto Serif JP",
-        serif;
+    display:none;
 }
 
 
@@ -771,7 +739,7 @@ button{
 
 .teacherTitle{
 
-    color:var(--brand) !important;
+    color:var(--brand);
 
     font-size:23px;
 
@@ -816,7 +784,7 @@ button{
 
 .teacherProblemTitle{
 
-    color:var(--brand) !important;
+    color:var(--brand);
 
     font-size:17px;
 
@@ -832,6 +800,16 @@ button{
     line-height:1.85;
 
     white-space:pre-wrap;
+}
+
+
+/* =========================================================
+   教師用フッター
+========================================================= */
+
+.teacherFooter{
+
+    display:none;
 }
 
 
@@ -976,19 +954,19 @@ button{
             <select id="levelInput">
 
                 <option value="1">
-                    1＝易
+                    レベル易
                 </option>
 
                 <option value="2">
-                    2＝やや易
+                    レベルやや易
                 </option>
 
                 <option value="3">
-                    3＝やや難
+                    レベルやや難
                 </option>
 
                 <option value="4" selected>
-                    4＝難
+                    レベル難
                 </option>
 
             </select>
@@ -1032,6 +1010,7 @@ button{
 </div>
 
 
+
 <!-- =====================================================
      印刷領域
 ===================================================== -->
@@ -1041,16 +1020,21 @@ button{
 
     <!-- ===============================
          生徒用
-    ================================= -->
+    ================================ -->
 
     <div class="studentPage">
 
 
-        <!-- 横一列のヘッダー -->
-
         <div class="studentHeader">
 
-            <div class="headerSpacer"></div>
+
+            <div class="brand">
+
+                <div class="brandText">
+                    国語教材
+                </div>
+
+            </div>
 
 
             <div class="titleArea">
@@ -1067,7 +1051,7 @@ button{
                     class="levelBadge"
                     id="studentLevel"
                 >
-                    難
+                    レベル難
                 </div>
 
             </div>
@@ -1075,14 +1059,13 @@ button{
 
             <div class="nameArea">
 
-                名前（　　　　　　　　　　　　　　　　　）
+                名前（　　　　　　　　　　　）
 
             </div>
 
         </div>
 
 
-        <!-- 問題 -->
 
         <div
             class="studentProblems"
@@ -1090,18 +1073,25 @@ button{
         ></div>
 
 
-        <!-- 著作権だけ表示 -->
+        <div class="studentFooter">
 
-        <div class="copyright">
-            © 教材やさん
+            <span>
+                指示語特訓プリント
+            </span>
+
+            <span>
+                国語
+            </span>
+
         </div>
 
     </div>
 
 
+
     <!-- ===============================
          教師用
-    ================================= -->
+    ================================ -->
 
     <div class="teacherPage">
 
@@ -1116,7 +1106,7 @@ button{
                 class="teacherLevel"
                 id="teacherLevel"
             >
-                難
+                レベル難
             </div>
 
         </div>
@@ -1128,12 +1118,20 @@ button{
         ></div>
 
 
+        <div class="teacherFooter">
+
+            指示語特訓プリント解説　教師用
+
+        </div>
+
     </div>
 
 </div>
 
 
+
 <script>
+
 
 /* =========================================================
    今回のサンプル
@@ -1176,6 +1174,28 @@ const sampleText = `===問題1===
 
 指導ポイント：
 二つの具体的な行動から、共通する「周りの人への配慮」という意味を考える。`;
+
+
+/* =========================================================
+   レベル表示
+========================================================= */
+
+function getLevelText(level){
+
+    const levelMap = {
+
+        "1":"レベル易",
+
+        "2":"レベルやや易",
+
+        "3":"レベルやや難",
+
+        "4":"レベル難"
+
+    };
+
+    return levelMap[level] || "レベル難";
+}
 
 
 /* =========================================================
@@ -1223,7 +1243,9 @@ function getProblemSection(text,number){
         text.indexOf(startMarker);
 
     if(start === -1){
+
         return "";
+
     }
 
 
@@ -1232,6 +1254,7 @@ function getProblemSection(text,number){
 
 
     let nextMarker = "";
+
 
     if(number === 1){
 
@@ -1273,6 +1296,7 @@ function getProblemSection(text,number){
 function parseProblem(section){
 
     let body = "";
+
     let question = "";
 
 
@@ -1315,8 +1339,11 @@ function parseProblem(section){
 
 
     return {
+
         body:body,
+
         question:question
+
     };
 }
 
@@ -1334,7 +1361,11 @@ function createAnswerGrid(){
         "answerGrid";
 
 
-    for(let column=0;column<2;column++){
+    for(
+        let column=0;
+        column<2;
+        column++
+    ){
 
         const columnElement =
             document.createElement("div");
@@ -1343,7 +1374,11 @@ function createAnswerGrid(){
             "answerColumn";
 
 
-        for(let row=0;row<10;row++){
+        for(
+            let row=0;
+            row<10;
+            row++
+        ){
 
             const cell =
                 document.createElement("div");
@@ -1361,6 +1396,7 @@ function createAnswerGrid(){
         grid.appendChild(
             columnElement
         );
+
     }
 
 
@@ -1381,7 +1417,7 @@ function createStudentProblem(number,data){
         "studentProblem";
 
 
-    /* ---------- 問題番号 ---------- */
+    /* ---------- ヘッダー ---------- */
 
     const header =
         document.createElement("div");
@@ -1572,7 +1608,9 @@ function getTeacherSection(text){
 
 
     if(index === -1){
+
         return "";
+
     }
 
 
@@ -1595,7 +1633,9 @@ function parseTeacher(text){
 
 
     if(!teacher){
+
         return [];
+
     }
 
 
@@ -1671,29 +1711,6 @@ function createTeacherProblem(
 
 
 /* =========================================================
-   レベル表示
-========================================================= */
-
-function getLevelLabel(level){
-
-    const labels = {
-
-        "1":"易",
-
-        "2":"やや易",
-
-        "3":"やや難",
-
-        "4":"難"
-
-    };
-
-
-    return labels[level] || "難";
-}
-
-
-/* =========================================================
    プリント作成
 ========================================================= */
 
@@ -1734,8 +1751,8 @@ function makePrint(){
         ).value;
 
 
-    const levelLabel =
-        getLevelLabel(level);
+    const levelText =
+        getLevelText(level);
 
 
     document.getElementById(
@@ -1747,21 +1764,16 @@ function makePrint(){
     document.getElementById(
         "studentLevel"
     ).textContent =
-        levelLabel;
+        levelText;
 
 
     document.getElementById(
         "teacherLevel"
     ).textContent =
-        levelLabel;
+        levelText;
 
 
     /* ---------- 問題数 ---------- */
-
-    /*
-       レベル4は2問。
-       その他は3問。
-    */
 
     const problemCount =
         level === "4"
@@ -1796,7 +1808,9 @@ function makePrint(){
 
 
         if(!section){
+
             continue;
+
         }
 
 
@@ -1858,6 +1872,7 @@ function makePrint(){
 
             }
         );
+
 }
 
 
@@ -1875,6 +1890,7 @@ window.addEventListener(
             sampleText;
 
         makePrint();
+
     }
 );
 
