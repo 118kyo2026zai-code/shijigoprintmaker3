@@ -206,6 +206,9 @@ button{
 
 /* =========================================================
    生徒用メインレイアウト
+
+   ★ サイドバーをflexから外して、
+     右側に固定配置する
 ========================================================= */
 
 .studentLayout{
@@ -213,11 +216,7 @@ button{
     width:100%;
     height:100%;
 
-    display:flex;
-
-    flex-direction:row-reverse;
-
-    gap:5mm;
+    position:relative;
 }
 
 
@@ -226,6 +225,11 @@ button{
 ========================================================= */
 
 .studentSidebar{
+
+    position:absolute;
+
+    top:0;
+    right:3mm;
 
     width:25mm;
     height:190mm;
@@ -237,7 +241,7 @@ button{
 
     padding-top:1mm;
 
-    flex:none;
+    z-index:10;
 }
 
 
@@ -267,6 +271,8 @@ button{
     letter-spacing:1px;
 
     line-height:1.3;
+
+    flex:none;
 }
 
 
@@ -296,6 +302,8 @@ button{
     font-weight:bold;
 
     line-height:1.3;
+
+    flex:none;
 }
 
 
@@ -320,25 +328,39 @@ button{
     line-height:1.8;
 
     text-align:center;
+
+    flex:none;
 }
+
+
+/* =========================================================
+   名前記入欄
+
+   ★ 余計なborderはつけない
+   ★ カッコを広くする
+========================================================= */
 
 .sideNameBlank{
 
-    display:inline-block;
+    display:block;
 
     margin-top:3mm;
 
-    width:15mm;
+    width:20mm;
 
-    min-height:42mm;
-
-    /*
-      以前ここにあった
-      border-right:1px solid #333;
-      を削除
-    */
+    min-height:48mm;
 
     writing-mode:vertical-rl;
+
+    text-align:center;
+
+    font-size:13px;
+
+    font-weight:normal;
+
+    color:#333;
+
+    border:none !important;
 }
 
 
@@ -360,16 +382,21 @@ button{
     writing-mode:horizontal-tb;
 
     white-space:nowrap;
+
+    z-index:20;
 }
 
 
 /* =========================================================
    問題エリア
+
+   ★ 右側サイドバーと重ならないように
+     右側に余白を確保
 ========================================================= */
 
 .studentProblems{
 
-    flex:1;
+    width:calc(100% - 30mm);
 
     height:190mm;
 
@@ -430,7 +457,7 @@ button{
 
 
 /* =========================================================
-   1・2の紫いろの番号
+   1・2の紫色番号
 ========================================================= */
 
 .problemNumber{
@@ -460,6 +487,8 @@ button{
     font-weight:bold;
 
     line-height:1;
+
+    flex:none;
 }
 
 
@@ -891,6 +920,17 @@ button{
 
         page-break-inside:avoid;
     }
+
+    .sideTitle,
+    .sideLevel,
+    .problemNumber{
+
+        background:var(--brand) !important;
+        color:#fff !important;
+
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+    }
 }
 
 </style>
@@ -902,7 +942,7 @@ button{
 
 <!-- =====================================================
      編集画面
-===================================================== -->
+========================================================= -->
 
 <div class="editor">
 
@@ -1045,6 +1085,7 @@ button{
 </div>
 
 
+
 <!-- =====================================================
      印刷領域
 ========================================================= -->
@@ -1093,7 +1134,7 @@ button{
                     名前
 
                     <div class="sideNameBlank">
-                        （　　　　　　　　　）
+                        （　　　　　　　　　　　　）
                     </div>
 
                 </div>
@@ -1110,6 +1151,7 @@ button{
         </div>
 
     </div>
+
 
 
     <!-- ===============================
@@ -1141,9 +1183,7 @@ button{
 
 
         <div class="teacherFooter">
-
             指示語特訓プリント解説　教師用
-
         </div>
 
     </div>
@@ -1151,7 +1191,9 @@ button{
 </div>
 
 
+
 <script>
+
 
 /* =========================================================
    今回のサンプル
@@ -1741,11 +1783,6 @@ function makePrint(){
 
 
     /* ---------- 問題数 ---------- */
-
-    /*
-       レベル4だけ2問。
-       その他は3問。
-    */
 
     const problemCount =
         level === "4"
