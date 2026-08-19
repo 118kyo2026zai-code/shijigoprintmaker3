@@ -206,9 +206,6 @@ button{
 
 /* =========================================================
    生徒用メインレイアウト
-
-   ★ サイドバーをflexから外して、
-     右側に固定配置する
 ========================================================= */
 
 .studentLayout{
@@ -226,6 +223,11 @@ button{
 
 .studentSidebar{
 
+    position:absolute;
+
+    top:0;
+    right:3mm;
+
     width:25mm;
     height:190mm;
 
@@ -236,11 +238,9 @@ button{
 
     padding-top:1mm;
 
-    flex:none;
-
-    /* 右端から少し内側へ */
-    margin-right:3mm;
+    z-index:10;
 }
+
 
 /* =========================================================
    タイトル
@@ -251,7 +251,7 @@ button{
     background:var(--brand) !important;
     color:#fff !important;
 
-    width:16mm;
+    width:14mm;
 
     padding:5mm 2mm;
 
@@ -260,10 +260,7 @@ button{
     writing-mode:vertical-rl;
     text-orientation:mixed;
 
-    /* ★ ここを追加 */
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    text-align:center;
 
     font-size:16px;
     font-weight:bold;
@@ -274,6 +271,8 @@ button{
 
     flex:none;
 }
+
+
 /* =========================================================
    レベル
 ========================================================= */
@@ -283,7 +282,7 @@ button{
     background:var(--brand) !important;
     color:#fff !important;
 
-    width:16mm;
+    width:14mm;
 
     margin-top:3mm;
 
@@ -294,10 +293,7 @@ button{
     writing-mode:vertical-rl;
     text-orientation:mixed;
 
-    /* ★ ここを追加 */
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    text-align:center;
 
     font-size:14px;
     font-weight:bold;
@@ -306,6 +302,8 @@ button{
 
     flex:none;
 }
+
+
 /* =========================================================
    名前
 ========================================================= */
@@ -334,9 +332,6 @@ button{
 
 /* =========================================================
    名前記入欄
-
-   ★ 余計なborderはつけない
-   ★ カッコを広くする
 ========================================================= */
 
 .sideNameBlank{
@@ -388,9 +383,6 @@ button{
 
 /* =========================================================
    問題エリア
-
-   ★ 右側サイドバーと重ならないように
-     右側に余白を確保
 ========================================================= */
 
 .studentProblems{
@@ -996,7 +988,7 @@ button{
 
 ② 正解例・・・
 根拠箇所・・・
-指導ポイント・・・
+指導ポイント ...
 "></textarea>
 
     </div>
@@ -1133,7 +1125,7 @@ button{
                     名前
 
                     <div class="sideNameBlank">
-                        （　　　　　　　　　　　　　　　　　　　　　　　　）
+                        （　　　　　　　　　　　　）
                     </div>
 
                 </div>
