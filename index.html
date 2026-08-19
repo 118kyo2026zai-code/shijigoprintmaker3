@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>指示語特訓プリントメーカー</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   カラー
+========================================================= */
+
+:root{
+    --brand:#7B3FC6;
+    --brand-dark:#5A258F;
+    --brand-light:#F0E6FA;
+    --line:#B99AD3;
+    --accent:#F28C28;
+}
+
+
+/* =========================================================
+   基本
+========================================================= */
+
+@page{
+    size:A4 landscape;
+    margin:0;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:
+        "UD デジタル 教科書体",
+        "UD Digi Kyokasho",
+        "教科書体",
+        "Yu Kyokasho",
+        "Noto Serif JP",
+        serif;
+
+    background:#eeeeee;
+    color:#333;
+}
+
+
+/* =========================================================
+   編集画面
+========================================================= */
+
+.editor{
+    max-width:1100px;
+    margin:0 auto;
+    padding:24px;
+}
+
+.editorTitle{
+    color:var(--brand);
+    margin:0 0 6px;
+    font-size:28px;
+}
+
+.editorLead{
+    color:#666;
+    margin:0 0 20px;
+}
+
+.panel{
+    background:#fff;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.panelTitle{
+    margin:0 0 12px;
+    color:var(--brand);
+    font-size:18px;
+}
+
+.help{
+    background:#f7f2fb;
+    border-left:4px solid var(--brand);
+    padding:12px 14px;
+    line-height:1.7;
+    font-size:14px;
+    margin-bottom:12px;
+}
+
+textarea{
+    width:100%;
+    height:420px;
+
+    padding:14px;
+
+    border:1px solid #ccc;
+    border-radius:6px;
+
+    resize:vertical;
+
+    font-family:
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+
+    font-size:15px;
+    line-height:1.7;
+}
+
+.settings{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.settings label{
+    font-weight:bold;
+    color:#555;
+}
+
+.settings input,
+.settings select{
+    padding:8px 10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:15px;
+}
+
+.buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:0;
+    border-radius:6px;
+    padding:11px 20px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.makeButton{
+    background:var(--brand);
+    color:white;
+}
+
+.sampleButton{
+    background:#eee;
+    color:#555;
+}
+
+.printButton{
+    background:var(--accent);
+    color:white;
+}
+
+
+/* =========================================================
+   印刷領域
+========================================================= */
+
+.printArea{
+    display:none;
+}
+
+
+/* =========================================================
+   生徒用ページ
+========================================================= */
+
+.studentPage{
+    width:297mm;
+    height:210mm;
+
+    background:#fff;
+
+    position:relative;
+
+    padding:
+        8mm
+        10mm
+        8mm
+        10mm;
+
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   生徒用ヘッダー
+   右から左へ読む構成
+========================================================= */
+
+.studentHeader{
+    height:25mm;
+
+    display:flex;
+    align-items:stretch;
+
+    border-bottom:2px solid var(--brand);
+
+    margin-bottom:4mm;
+}
+
+
+/* -------------------------
+   名前
+------------------------- */
+
+.nameArea{
+    width:22mm;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    font-size:13px;
+    color:#333;
+    font-weight:bold;
+
+    white-space:nowrap;
+}
+
+
+/* -------------------------
+   タイトル部分
+------------------------- */
+
+.titleArea{
+    flex:1;
+
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+
+    flex-direction:row-reverse;
+
+    gap:5mm;
+
+    padding-right:6mm;
+}
+
+
+/* -------------------------
+   タイトル
+------------------------- */
+
+.mainTitle{
+    background:var(--brand);
+    color:#fff;
+
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    height:21mm;
+    min-width:15mm;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:23px;
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    padding:4px 6px;
+
+    border-radius:5px;
+
+    box-shadow:0 2px 0 rgba(0,0,0,.08);
+}
+
+
+/* -------------------------
+   レベル
+------------------------- */
+
+.levelBadge{
+    background:var(--accent);
+    color:#fff;
+
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    height:18mm;
+    min-width:11mm;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:4px 4px;
+
+    border-radius:4px;
+
+    font-size:11px;
+    font-weight:bold;
+}
+
+
+/* -------------------------
+   ブランド
+------------------------- */
+
+.brand{
+    width:25mm;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.brandText{
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    font-size:9px;
+    font-weight:bold;
+
+    color:var(--brand);
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   問題2問
+========================================================= */
+
+.studentProblems{
+    height:165mm;
+
+    display:flex;
+
+    flex-direction:row-reverse;
+
+    gap:7mm;
+}
+
+
+/* =========================================================
+   問題カード
+========================================================= */
+
+.studentProblem{
+    width:calc((100% - 7mm) / 2);
+    height:165mm;
+
+    border:1px solid #cdbfe0;
+
+    border-top:4px solid var(--brand);
+
+    border-radius:4px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* =========================================================
+   問題カードヘッダー
+
+   右側 → ①
+   左側 → 指示語を読み取ろう
+========================================================= */
+
+.problemHeader{
+    height:18mm;
+
+    display:flex;
+    align-items:center;
+
+    flex-direction:row-reverse;
+
+    padding:0 5mm;
+
+    border-bottom:1px solid #d8cee2;
+}
+
+
+/* -------------------------
+   問題番号
+------------------------- */
+
+.problemNumber{
+    width:10mm;
+    height:10mm;
+
+    flex:none;
+
+    background:var(--brand);
+    color:#fff;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:17px;
+    font-weight:bold;
+
+    margin-left:4mm;
+}
+
+
+/* -------------------------
+   問題ヘッダー文字
+------------------------- */
+
+.problemHeaderText{
+    color:var(--brand);
+
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    height:14mm;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:13px;
+    font-weight:bold;
+
+    letter-spacing:.5px;
+}
+
+
+/* =========================================================
+   問題内部
+========================================================= */
+
+.problemContent{
+    flex:1;
+
+    display:flex;
+
+    flex-direction:row-reverse;
+
+    padding:3mm 4mm 4mm 4mm;
+
+    min-height:0;
+}
+
+
+/* =========================================================
+   本文
+========================================================= */
+
+.bodyArea{
+    width:48%;
+
+    border-left:1px dotted #b9a8cc;
+
+    padding-left:4mm;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+
+    min-width:0;
+    min-height:0;
+}
+
+
+/* =========================================================
+   見出し
+
+   本文1
+   問い
+   答え
+
+   すべて縦書き
+========================================================= */
+
+.sectionHeading{
+    flex:0 0 auto;
+
+    display:flex;
+
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    color:var(--brand);
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    border:1px solid #b9a8cc;
+
+    border-radius:12px;
+
+    padding:5px 3px;
+
+    margin-bottom:2mm;
+
+    min-height:17mm;
+
+    align-items:center;
+    justify-content:center;
+}
+
+
+/* =========================================================
+   本文
+========================================================= */
+
+.verticalText{
+    flex:1;
+
+    min-height:0;
+
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    font-family:
+        "UD デジタル 教科書体",
+        "UD Digi Kyokasho",
+        "教科書体",
+        "Yu Kyokasho",
+        "Noto Serif JP",
+        serif;
+
+    font-size:17px;
+
+    line-height:1.65;
+
+    letter-spacing:.03em;
+
+    white-space:pre-wrap;
+
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   問い
+========================================================= */
+
+.questionArea{
+    width:30%;
+
+    border-left:1px dotted #b9a8cc;
+
+    padding-left:4mm;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+
+    min-width:0;
+    min-height:0;
+}
+
+.questionText{
+    flex:1;
+
+    min-height:0;
+
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    font-family:
+        "UD デジタル 教科書体",
+        "UD Digi Kyokasho",
+        "教科書体",
+        "Yu Kyokasho",
+        "Noto Serif JP",
+        serif;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    line-height:1.75;
+
+    white-space:pre-wrap;
+
+    overflow:hidden;
+
+    text-align:left;
+}
+
+
+/* =========================================================
+   答え
+========================================================= */
+
+.answerArea{
+    width:22%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    padding-left:3mm;
+
+    min-height:0;
+}
+
+
+/* -------------------------
+   答え見出し
+------------------------- */
+
+.answerHeading{
+    color:var(--brand);
+
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    margin-bottom:2mm;
+}
+
+
+/* -------------------------
+   20字以内
+------------------------- */
+
+.answerLimit{
+    color:#777;
+
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    font-size:9px;
+
+    margin-bottom:3mm;
+}
+
+
+/* =========================================================
+   原稿用紙
+========================================================= */
+
+.answerGrid{
+    display:flex;
+
+    gap:0;
+
+    flex-direction:row;
+
+    border:1px solid #8d75a9;
+}
+
+.answerColumn{
+    display:flex;
+
+    flex-direction:column;
+}
+
+.answerCell{
+    width:10mm;
+    height:10mm;
+
+    border-right:1px solid #8d75a9;
+    border-bottom:1px solid #8d75a9;
+
+    flex:none;
+}
+
+.answerColumn:last-child .answerCell{
+    border-right:0;
+}
+
+.answerCell:last-child{
+    border-bottom:0;
+}
+
+
+/* =========================================================
+   生徒用フッター
+========================================================= */
+
+.studentFooter{
+    position:absolute;
+
+    left:10mm;
+    right:10mm;
+    bottom:3mm;
+
+    height:4mm;
+
+    border-top:1px solid #ddd;
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:end;
+
+    color:#999;
+
+    font-size:7px;
+}
+
+
+/* =========================================================
+   教師用ページ
+========================================================= */
+
+.teacherPage{
+    width:297mm;
+    height:210mm;
+
+    background:#fff;
+
+    position:relative;
+
+    padding:
+        12mm
+        15mm
+        8mm
+        15mm;
+
+    page-break-before:always;
+
+    overflow:hidden;
+}
+
+.teacherHeader{
+    height:20mm;
+
+    border-bottom:2px solid var(--brand);
+
+    margin-bottom:7mm;
+}
+
+.teacherTitle{
+    color:var(--brand);
+
+    font-size:23px;
+
+    font-weight:bold;
+}
+
+.teacherLevel{
+    margin-top:2mm;
+
+    color:#777;
+
+    font-size:11px;
+}
+
+.teacherProblems{
+    height:163mm;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:8mm;
+}
+
+.teacherProblem{
+    border:1px solid #d5d5d5;
+
+    border-top:4px solid var(--brand);
+
+    padding:6mm;
+
+    overflow:hidden;
+}
+
+.teacherProblemTitle{
+    color:var(--brand);
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    margin-bottom:5mm;
+}
+
+.teacherProblemText{
+    font-size:12.5px;
+
+    line-height:1.85;
+
+    white-space:pre-wrap;
+}
+
+.teacherFooter{
+    position:absolute;
+
+    left:15mm;
+    right:15mm;
+    bottom:3mm;
+
+    border-top:1px solid #ddd;
+
+    padding-top:1mm;
+
+    color:#999;
+
+    font-size:7px;
+}
+
+
+/* =========================================================
+   印刷
+========================================================= */
+
+@media print{
+
+    html,
+    body{
+        width:297mm;
+        height:210mm;
+
+        margin:0;
+        padding:0;
+
+        background:#fff;
+    }
+
+    .editor{
+        display:none !important;
+    }
+
+    .printArea{
+        display:block;
+    }
+
+    .studentPage{
+        page-break-after:always;
+        page-break-inside:avoid;
+    }
+
+    .teacherPage{
+        page-break-before:always;
+        page-break-inside:avoid;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     編集画面
+===================================================== -->
+
+<div class="editor">
+
+    <h1 class="editorTitle">
+        指示語特訓プリントメーカー
+    </h1>
+
+    <p class="editorLead">
+        完成した問題をまとめて貼り付けて、A4横のプリントにします。
+    </p>
+
+
+    <div class="panel">
+
+        <h2 class="panelTitle">
+            問題をまとめて貼り付け
+        </h2>
+
+        <div class="help">
+
+            問題1・問題2・教師用を、
+            <strong>まとめてそのまま貼り付けてください。</strong><br>
+
+            1問ずつ入力する必要はありません。
+
+        </div>
+
+
+        <textarea
+            id="inputText"
+            placeholder="===問題1===
+
+本文
+・・・
+
+問題
+・・・
+
+===問題2===
+
+本文
+・・・
+
+問題
+・・・
+
+===教師用===
+
+① 正解例・・・
+根拠箇所・・・
+指導ポイント・・・
+
+② 正解例・・・
+根拠箇所・・・
+指導ポイント・・・
+"></textarea>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2 class="panelTitle">
+            プリント設定
+        </h2>
+
+        <div class="settings">
+
+            <label>
+                タイトル
+            </label>
+
+            <input
+                id="titleInput"
+                type="text"
+                value="指示語特訓プリント"
+            >
+
+
+            <label>
+                レベル
+            </label>
+
+            <select id="levelInput">
+
+                <option value="1">
+                    レベル1
+                </option>
+
+                <option value="2">
+                    レベル2
+                </option>
+
+                <option value="3">
+                    レベル3
+                </option>
+
+                <option value="4" selected>
+                    レベル4
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="buttons">
+
+            <button
+                class="makeButton"
+                onclick="makePrint()"
+            >
+                プリントを作る
+            </button>
+
+
+            <button
+                class="sampleButton"
+                onclick="loadSample()"
+            >
+                今回のサンプルを入れる
+            </button>
+
+
+            <button
+                class="printButton"
+                onclick="window.print()"
+            >
+                印刷する
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     印刷領域
+===================================================== -->
+
+<div class="printArea">
+
+
+    <!-- ===============================
+         生徒用
+    ================================ -->
+
+    <div class="studentPage">
+
+        <div class="studentHeader">
+
+
+            <!-- 名前：右側 -->
+
+            <div class="nameArea">
+                名前（　　　　　　　　　　　）
+            </div>
+
+
+            <!-- タイトル・レベル -->
+
+            <div class="titleArea">
+
+                <div
+                    class="mainTitle"
+                    id="studentTitle"
+                >
+                    指示語特訓プリント
+                </div>
+
+
+                <div
+                    class="levelBadge"
+                    id="studentLevel"
+                >
+                    レベル4
+                </div>
+
+            </div>
+
+
+            <!-- ブランド：左側 -->
+
+            <div class="brand">
+
+                <div class="brandText">
+                    国語教材
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="studentProblems"
+            id="studentProblems"
+        ></div>
+
+
+        <div class="studentFooter">
+
+            <span>
+                指示語特訓プリント
+            </span>
+
+            <span>
+                国語
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===============================
+         教師用
+    ================================ -->
+
+    <div class="teacherPage">
+
+        <div class="teacherHeader">
+
+            <div class="teacherTitle">
+                指示語特訓プリント解説　教師用
+            </div>
+
+            <div
+                class="teacherLevel"
+                id="teacherLevel"
+            >
+                レベル4
+            </div>
+
+        </div>
+
+
+        <div
+            class="teacherProblems"
+            id="teacherProblems"
+        ></div>
+
+
+        <div class="teacherFooter">
+            指示語特訓プリント解説　教師用
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   今回のサンプル
+========================================================= */
+
+const sampleText = `===問題1===
+
+本文
+道にゴミを投げ捨てる。また、誰もいない部屋の電気をつけっぱなしにする。こうしたことを、一人一人がやめるように意識しなければなりません。
+
+問題
+「こうしたこと」は何を指していますか。内容を言い換えて、「〜こと」の形で答えましょう。
+
+===問題2===
+
+本文
+病院の待ち合い室では、静かに過ごす。また、電車の中では、お年よりに席をゆずる。このようなことを、普段の生活から心がけることが大切です。
+
+問題
+「このようなこと」は何を指していますか。内容を言い換えて、「〜こと」の形で答えましょう。
+
+===教師用===
+
+①
+正解例：
+環境を大切にしない行動をすること。
+
+根拠箇所：
+「道にゴミを投げ捨てる」「誰もいない部屋の電気をつけっぱなしにする」
+
+指導ポイント：
+二つの具体的な行動をそのまま並べるのではなく、共通する内容を考えて「環境を大切にしない行動」と言い換える。
+
+②
+正解例：
+公共の場で周りの人に配慮すること。
+
+根拠箇所：
+「病院の待ち合い室では、静かに過ごす」「電車の中では、お年よりに席をゆずる」
+
+指導ポイント：
+二つの具体的な行動から、共通する「周りの人への配慮」という意味を考える。`;
+
+
+/* =========================================================
+   サンプル読み込み
+========================================================= */
+
+function loadSample(){
+
+    document.getElementById("inputText").value = sampleText;
+
+    makePrint();
+}
+
+
+/* =========================================================
+   テキスト整形
+========================================================= */
+
+function cleanText(text){
+
+    return text
+
+        .replace(/<br\s*\/?>/gi,"\n")
+
+        .replace(/\r\n/g,"\n")
+
+        .replace(/\r/g,"\n")
+
+        .trim();
+}
+
+
+/* =========================================================
+   問題部分を取り出す
+========================================================= */
+
+function getProblemSection(text,number){
+
+    const startMarker =
+        "===問題" + number + "===";
+
+    const start =
+        text.indexOf(startMarker);
+
+    if(start === -1){
+        return "";
+    }
+
+    const contentStart =
+        start + startMarker.length;
+
+    let nextMarker = "";
+
+    if(number === 1){
+
+        nextMarker =
+            "===問題2===";
+
+    }
+    else{
+
+        nextMarker =
+            "===教師用===";
+
+    }
+
+    const end =
+        text.indexOf(nextMarker);
+
+    if(end === -1){
+
+        return text
+            .substring(contentStart)
+            .trim();
+
+    }
+
+    return text
+        .substring(contentStart,end)
+        .trim();
+}
+
+
+/* =========================================================
+   本文と問題を分離
+========================================================= */
+
+function parseProblem(section){
+
+    let body = "";
+    let question = "";
+
+    const bodyIndex =
+        section.indexOf("本文");
+
+    const questionIndex =
+        section.indexOf("問題");
+
+    if(
+        bodyIndex !== -1 &&
+        questionIndex !== -1 &&
+        questionIndex > bodyIndex
+    ){
+
+        body =
+            section
+                .substring(
+                    bodyIndex + 2,
+                    questionIndex
+                )
+                .trim();
+
+        question =
+            section
+                .substring(
+                    questionIndex + 2
+                )
+                .trim();
+
+    }
+    else{
+
+        body = section.trim();
+
+    }
+
+    return {
+        body:body,
+        question:question
+    };
+}
+
+
+/* =========================================================
+   原稿用紙20字
+========================================================= */
+
+function createAnswerGrid(){
+
+    const grid =
+        document.createElement("div");
+
+    grid.className =
+        "answerGrid";
+
+    for(let column=0;column<2;column++){
+
+        const columnElement =
+            document.createElement("div");
+
+        columnElement.className =
+            "answerColumn";
+
+        for(let row=0;row<10;row++){
+
+            const cell =
+                document.createElement("div");
+
+            cell.className =
+                "answerCell";
+
+            columnElement.appendChild(cell);
+
+        }
+
+        grid.appendChild(
+            columnElement
+        );
+    }
+
+    return grid;
+}
+
+
+/* =========================================================
+   生徒用問題カード
+========================================================= */
+
+function createStudentProblem(number,data){
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "studentProblem";
+
+
+    /* ---------- ヘッダー ---------- */
+
+    const header =
+        document.createElement("div");
+
+    header.className =
+        "problemHeader";
+
+
+    const numberBox =
+        document.createElement("div");
+
+    numberBox.className =
+        "problemNumber";
+
+    numberBox.textContent =
+        number === 1 ? "①" : "②";
+
+
+    const headerText =
+        document.createElement("div");
+
+    headerText.className =
+        "problemHeaderText";
+
+    headerText.textContent =
+        "指示語を読み取ろう";
+
+
+    header.appendChild(
+        numberBox
+    );
+
+    header.appendChild(
+        headerText
+    );
+
+
+    /* ---------- 本文 ---------- */
+
+    const bodyArea =
+        document.createElement("div");
+
+    bodyArea.className =
+        "bodyArea";
+
+
+    const bodyHeading =
+        document.createElement("div");
+
+    bodyHeading.className =
+        "sectionHeading";
+
+    bodyHeading.textContent =
+        "本文" + number;
+
+
+    const bodyText =
+        document.createElement("div");
+
+    bodyText.className =
+        "verticalText";
+
+    bodyText.textContent =
+        data.body;
+
+
+    bodyArea.appendChild(
+        bodyHeading
+    );
+
+    bodyArea.appendChild(
+        bodyText
+    );
+
+
+    /* ---------- 問い ---------- */
+
+    const questionArea =
+        document.createElement("div");
+
+    questionArea.className =
+        "questionArea";
+
+
+    const questionHeading =
+        document.createElement("div");
+
+    questionHeading.className =
+        "sectionHeading";
+
+    questionHeading.textContent =
+        "問い";
+
+
+    const questionText =
+        document.createElement("div");
+
+    questionText.className =
+        "questionText";
+
+    questionText.textContent =
+        data.question;
+
+
+    questionArea.appendChild(
+        questionHeading
+    );
+
+    questionArea.appendChild(
+        questionText
+    );
+
+
+    /* ---------- 答え ---------- */
+
+    const answerArea =
+        document.createElement("div");
+
+    answerArea.className =
+        "answerArea";
+
+
+    const answerHeading =
+        document.createElement("div");
+
+    answerHeading.className =
+        "answerHeading";
+
+    answerHeading.textContent =
+        "答え";
+
+
+    const answerLimit =
+        document.createElement("div");
+
+    answerLimit.className =
+        "answerLimit";
+
+    answerLimit.textContent =
+        "20字以内";
+
+
+    answerArea.appendChild(
+        answerHeading
+    );
+
+    answerArea.appendChild(
+        answerLimit
+    );
+
+    answerArea.appendChild(
+        createAnswerGrid()
+    );
+
+
+    /* ---------- 3領域 ---------- */
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "problemContent";
+
+
+    content.appendChild(
+        bodyArea
+    );
+
+    content.appendChild(
+        questionArea
+    );
+
+    content.appendChild(
+        answerArea
+    );
+
+
+    card.appendChild(
+        header
+    );
+
+    card.appendChild(
+        content
+    );
+
+
+    return card;
+}
+
+
+/* =========================================================
+   教師用部分を取得
+========================================================= */
+
+function getTeacherSection(text){
+
+    const marker =
+        "===教師用===";
+
+    const index =
+        text.indexOf(marker);
+
+    if(index === -1){
+        return "";
+    }
+
+    return text
+        .substring(
+            index + marker.length
+        )
+        .trim();
+}
+
+
+/* =========================================================
+   教師用問題を分離
+========================================================= */
+
+function parseTeacher(text){
+
+    const teacher =
+        getTeacherSection(text);
+
+    if(!teacher){
+        return [];
+    }
+
+    return teacher
+
+        .split(
+            /(?=^\s*[①②③]\s*)/m
+        )
+
+        .map(
+            x => x.trim()
+        )
+
+        .filter(
+            x => x
+        );
+}
+
+
+/* =========================================================
+   教師用カード
+========================================================= */
+
+function createTeacherProblem(
+    number,
+    text
+){
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "teacherProblem";
+
+
+    const title =
+        document.createElement("div");
+
+    title.className =
+        "teacherProblemTitle";
+
+    title.textContent =
+        "問題" + number;
+
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "teacherProblemText";
+
+
+    content.textContent =
+        text
+            .replace(
+                /^\s*[①②③]\s*/,
+                ""
+            )
+            .trim();
+
+
+    card.appendChild(
+        title
+    );
+
+    card.appendChild(
+        content
+    );
+
+
+    return card;
+}
+
+
+/* =========================================================
+   プリント作成
+========================================================= */
+
+function makePrint(){
+
+    let text =
+        document.getElementById(
+            "inputText"
+        ).value;
+
+
+    text =
+        cleanText(text);
+
+
+    if(!text){
+
+        alert(
+            "問題文を貼り付けてください。"
+        );
+
+        return;
+    }
+
+
+    /* ---------- 設定 ---------- */
+
+    const title =
+        document.getElementById(
+            "titleInput"
+        ).value.trim()
+        || "指示語特訓プリント";
+
+
+    const level =
+        document.getElementById(
+            "levelInput"
+        ).value;
+
+
+    document.getElementById(
+        "studentTitle"
+    ).textContent =
+        title;
+
+
+    document.getElementById(
+        "studentLevel"
+    ).textContent =
+        "レベル" + level;
+
+
+    document.getElementById(
+        "teacherLevel"
+    ).textContent =
+        "レベル" + level;
+
+
+    /* ---------- 問題数 ---------- */
+
+    const problemCount =
+        level === "4"
+            ? 2
+            : 3;
+
+
+    /* =====================================================
+       生徒用
+    ===================================================== */
+
+    const studentProblems =
+        document.getElementById(
+            "studentProblems"
+        );
+
+    studentProblems.innerHTML = "";
+
+
+    for(
+        let i=1;
+        i<=problemCount;
+        i++
+    ){
+
+        const section =
+            getProblemSection(
+                text,
+                i
+            );
+
+
+        if(!section){
+            continue;
+        }
+
+
+        const data =
+            parseProblem(
+                section
+            );
+
+
+        studentProblems.appendChild(
+
+            createStudentProblem(
+                i,
+                data
+            )
+
+        );
+    }
+
+
+    /* =====================================================
+       教師用
+    ===================================================== */
+
+    const teacherProblems =
+        document.getElementById(
+            "teacherProblems"
+        );
+
+    teacherProblems.innerHTML = "";
+
+
+    const teacherData =
+        parseTeacher(
+            text
+        );
+
+
+    teacherData
+
+        .slice(
+            0,
+            problemCount
+        )
+
+        .forEach(
+            function(text,index){
+
+                teacherProblems.appendChild(
+
+                    createTeacherProblem(
+                        index + 1,
+                        text
+                    )
+
+                );
+
+            }
+        );
+}
+
+
+/* =========================================================
+   最初からサンプル表示
+========================================================= */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        document.getElementById(
+            "inputText"
+        ).value =
+            sampleText;
+
+        makePrint();
+    }
+);
+
+</script>
+
+</body>
+</html>
