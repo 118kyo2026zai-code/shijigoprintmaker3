@@ -226,11 +226,6 @@ button{
 
 .studentSidebar{
 
-    position:absolute;
-
-    top:0;
-    right:3mm;
-
     width:25mm;
     height:190mm;
 
@@ -241,9 +236,11 @@ button{
 
     padding-top:1mm;
 
-    z-index:10;
-}
+    flex:none;
 
+    /* 右端から少し内側へ */
+    margin-right:3mm;
+}
 
 /* =========================================================
    タイトル
@@ -272,9 +269,9 @@ button{
 
     line-height:1.3;
 
-    flex:none;
+    /* 枠の中央に配置 */
+    align-self:center;
 }
-
 
 /* =========================================================
    レベル
@@ -303,9 +300,9 @@ button{
 
     line-height:1.3;
 
-    flex:none;
+    /* 枠の中央に配置 */
+    align-self:center;
 }
-
 
 /* =========================================================
    名前
