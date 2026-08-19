@@ -8,6 +8,10 @@
 
 <style>
 
+/* =========================================================
+   色
+========================================================= */
+
 :root{
     --brand:#7B3FC6;
     --brand-dark:#5A258F;
@@ -106,12 +110,9 @@ textarea{
     resize:vertical;
 
     font-family:
-        "UD デジタル 教科書体",
-        "UD Digi Kyokasho",
-        "教科書体",
-        "Yu Kyokasho",
-        "Noto Serif JP",
-        serif;
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
 
     font-size:15px;
     line-height:1.7;
@@ -154,7 +155,7 @@ button{
 
 .makeButton{
     background:var(--brand);
-    color:#fff;
+    color:white;
 }
 
 .sampleButton{
@@ -163,8 +164,8 @@ button{
 }
 
 .printButton{
-    background:var(--accent);
-    color:#fff;
+    background:#e88a32;
+    color:white;
 }
 
 
@@ -191,63 +192,48 @@ button{
     position:relative;
 
     padding:
+        9mm
+        10mm
         8mm
-        8mm
-        8mm
-        8mm;
+        10mm;
 
     overflow:hidden;
 }
 
 
 /* =========================================================
-   生徒用メインレイアウト
+   ヘッダー
+   右端に縦書きでタイトル・レベル・名前
 ========================================================= */
 
-.studentLayout{
+.studentHeader{
 
-    width:100%;
-    height:194mm;
+    position:absolute;
 
-    display:flex;
-
-    flex-direction:row;
-
-    gap:5mm;
-}
-
-
-/*
-  問題エリア
-  問題2 → 左
-  問題1 → 右
-*/
-
-.studentProblems{
-
-    flex:1;
-
-    height:194mm;
-
-    display:flex;
-
-    flex-direction:row-reverse;
-
-    gap:6mm;
-
-    min-width:0;
-}
-
-
-/* =========================================================
-   右側ブランド欄
-========================================================= */
-
-.rightSidebar{
+    top:9mm;
+    right:10mm;
 
     width:24mm;
+    height:185mm;
 
-    height:194mm;
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:flex-start;
+}
+
+.brand{
+    display:none;
+}
+
+.brandText{
+    display:none;
+}
+
+.titleArea{
 
     display:flex;
 
@@ -257,47 +243,42 @@ button{
 
     justify-content:flex-start;
 
-    padding-top:1mm;
+    gap:5mm;
 
-    flex:none;
+    width:100%;
 }
 
 
 /* =========================================================
-   タイトル
+   メインタイトル
 ========================================================= */
 
-.sidebarTitle{
+.mainTitle{
 
-    width:18mm;
+    background:var(--brand) !important;
+    color:#ffffff !important;
 
-    background:var(--brand);
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
 
-    color:#fff;
+    font-size:20px;
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    padding:8px 5px;
 
     border-radius:5px;
 
-    padding:
-        4mm
-        2mm;
+    box-shadow:0 2px 0 rgba(0,0,0,.08);
 
-    writing-mode:vertical-rl;
-
-    text-orientation:mixed;
-
-    font-size:19px;
-
-    font-weight:bold;
-
-    letter-spacing:.08em;
-
-    line-height:1.2;
+    height:58mm;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
+
+    white-space:nowrap;
 }
 
 
@@ -305,39 +286,28 @@ button{
    レベル
 ========================================================= */
 
-.sidebarLevel{
+.levelBadge{
 
-    width:18mm;
-
-    margin-top:3mm;
-
-    background:var(--brand);
-
-    color:#fff;
-
-    border-radius:5px;
-
-    padding:
-        4mm
-        2mm;
+    background:var(--brand) !important;
+    color:#ffffff !important;
 
     writing-mode:vertical-rl;
-
     text-orientation:mixed;
 
-    font-size:17px;
+    padding:7px 5px;
 
+    border-radius:4px;
+
+    font-size:16px;
     font-weight:bold;
 
-    letter-spacing:.08em;
-
-    line-height:1.2;
+    height:32mm;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
+
+    white-space:nowrap;
 }
 
 
@@ -345,70 +315,43 @@ button{
    名前
 ========================================================= */
 
-.sidebarName{
+.nameArea{
+
+    width:100%;
+
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+
+    text-align:center;
+
+    font-size:14px;
+    font-weight:bold;
 
     margin-top:5mm;
 
-    width:20mm;
-
-    height:54mm;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:flex-start;
-
-    writing-mode:vertical-rl;
-
-    text-orientation:mixed;
-
-    font-size:15px;
-
-    font-weight:bold;
-
-    letter-spacing:.08em;
-
-    color:#333;
-}
-
-
-/*
-  名前の記入欄。
-  横幅を広めに確保。
-*/
-
-.nameLine{
-
-    margin-top:3mm;
-
-    min-height:38mm;
-
-    letter-spacing:.15em;
-
-    font-weight:normal;
+    white-space:nowrap;
 }
 
 
 /* =========================================================
-   著作権表示
+   2問
 ========================================================= */
 
-.copyright{
+.studentProblems{
 
-    margin-top:auto;
+    width:calc(100% - 27mm);
 
-    writing-mode:vertical-rl;
+    height:178mm;
 
-    text-orientation:mixed;
+    margin-right:27mm;
 
-    font-size:7px;
+    display:flex;
 
-    color:#999;
+    flex-direction:row-reverse;
 
-    letter-spacing:.05em;
+    gap:7mm;
+
+    padding-top:5mm;
 }
 
 
@@ -418,31 +361,29 @@ button{
 
 .studentProblem{
 
-    width:calc((100% - 6mm) / 2);
+    width:calc((100% - 7mm) / 2);
 
-    height:194mm;
+    height:164mm;
 
     border:1px solid #cdbfe0;
 
     border-top:4px solid var(--brand);
 
-    border-radius:5px;
+    border-radius:4px;
 
     overflow:hidden;
 
     background:#fff;
-
-    min-width:0;
 }
 
 
 /* =========================================================
-   問題番号ヘッダー
+   問題カードのタイトル
 ========================================================= */
 
 .problemHeader{
 
-    height:16mm;
+    height:15mm;
 
     display:flex;
 
@@ -456,19 +397,16 @@ button{
 }
 
 
-/*
-  問題番号は横書きのまま。
-  ただし位置は中央。
-*/
+/* =========================================================
+   問題番号
+========================================================= */
 
 .problemNumber{
 
     width:10mm;
-
     height:10mm;
 
     background:var(--brand);
-
     color:#fff;
 
     border-radius:4px;
@@ -476,25 +414,21 @@ button{
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
-    font-family:
-        Arial,
-        sans-serif;
-
     font-size:18px;
-
     font-weight:bold;
 
-    line-height:1;
+    margin:0;
+
+    flex:none;
 }
 
 
-/*
-  「指示語を読み取ろう」は削除したため、
-  このクラスは使用しない。
-*/
+/* =========================================================
+   問題タイトル文字
+   「指示語を読み取ろう」は削除
+========================================================= */
 
 .problemHeaderText{
     display:none;
@@ -507,19 +441,13 @@ button{
 
 .problemContent{
 
-    height:178mm;
+    height:149mm;
 
     display:flex;
 
     flex-direction:row-reverse;
 
-    padding:
-        4mm
-        4mm
-        5mm
-        4mm;
-
-    min-width:0;
+    padding:4mm 4mm 5mm 4mm;
 }
 
 
@@ -541,8 +469,15 @@ button{
 
     align-items:center;
 
+    justify-content:flex-start;
+
     min-width:0;
 }
+
+
+/* =========================================================
+   本文見出し
+========================================================= */
 
 .sectionHeading{
 
@@ -566,11 +501,10 @@ button{
 }
 
 
-/*
-  本文は縦書き。
-  white-space:normal にして、
-  入力文章を不自然に改行しない。
-*/
+/* =========================================================
+   本文・縦書き
+   ★ 中央寄せ
+========================================================= */
 
 .verticalText{
 
@@ -583,6 +517,12 @@ button{
     writing-mode:vertical-rl;
 
     text-orientation:mixed;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
 
     font-family:
         "UD デジタル 教科書体",
@@ -598,11 +538,11 @@ button{
 
     letter-spacing:.03em;
 
-    white-space:normal;
+    white-space:pre-wrap;
 
     overflow:hidden;
 
-    text-align:left;
+    text-align:center;
 }
 
 
@@ -624,8 +564,16 @@ button{
 
     align-items:center;
 
+    justify-content:flex-start;
+
     min-width:0;
 }
+
+
+/* =========================================================
+   問い・縦書き
+   ★ 中央寄せ
+========================================================= */
 
 .questionText{
 
@@ -638,6 +586,12 @@ button{
     writing-mode:vertical-rl;
 
     text-orientation:mixed;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
 
     font-family:
         "UD デジタル 教科書体",
@@ -653,11 +607,11 @@ button{
 
     line-height:1.75;
 
-    white-space:normal;
+    white-space:pre-wrap;
 
     overflow:hidden;
 
-    text-align:left;
+    text-align:center;
 }
 
 
@@ -676,8 +630,6 @@ button{
     align-items:center;
 
     padding-left:3mm;
-
-    min-width:0;
 }
 
 .answerHeading{
@@ -726,11 +678,9 @@ button{
 .answerCell{
 
     width:10mm;
-
     height:10mm;
 
     border-right:1px solid #8d75a9;
-
     border-bottom:1px solid #8d75a9;
 
     flex:none;
@@ -746,13 +696,58 @@ button{
 
 
 /* =========================================================
+   著作権表示
+   ★ 縦書きではなく、下に横書き
+========================================================= */
+
+.studentFooter{
+
+    position:absolute;
+
+    left:10mm;
+
+    right:10mm;
+
+    bottom:3mm;
+
+    height:5mm;
+
+    border-top:1px solid #ddd;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:center;
+
+    color:#777;
+
+    font-size:7px;
+
+    writing-mode:horizontal-tb;
+}
+
+.studentFooter span:first-child{
+    display:none;
+}
+
+.studentFooter span:last-child{
+    display:none;
+}
+
+.studentFooter::after{
+    content:"© 教材やさん";
+    writing-mode:horizontal-tb;
+}
+
+
+/* =========================================================
    教師用ページ
 ========================================================= */
 
 .teacherPage{
 
     width:297mm;
-
     height:210mm;
 
     background:#fff;
@@ -837,19 +832,37 @@ button{
 
 .teacherProblemText{
 
-    font-family:
-        "UD デジタル 教科書体",
-        "UD Digi Kyokasho",
-        "教科書体",
-        "Yu Kyokasho",
-        "Noto Serif JP",
-        serif;
-
     font-size:12.5px;
 
     line-height:1.85;
 
     white-space:pre-wrap;
+}
+
+
+/* =========================================================
+   教師用フッター
+========================================================= */
+
+.teacherFooter{
+
+    position:absolute;
+
+    left:15mm;
+
+    right:15mm;
+
+    bottom:3mm;
+
+    border-top:1px solid #ddd;
+
+    padding-top:1mm;
+
+    color:#999;
+
+    font-size:7px;
+
+    text-align:right;
 }
 
 
@@ -863,11 +876,9 @@ button{
     body{
 
         width:297mm;
-
         height:210mm;
 
         margin:0;
-
         padding:0;
 
         background:#fff;
@@ -882,16 +893,12 @@ button{
     }
 
     .studentPage{
-
         page-break-after:always;
-
         page-break-inside:avoid;
     }
 
     .teacherPage{
-
         page-break-before:always;
-
         page-break-inside:avoid;
     }
 }
@@ -960,8 +967,8 @@ button{
 
 ② 正解例・・・
 根拠箇所・・・
-指導ポイント・・・
-"></textarea>
+指導ポイント ..."
+        ></textarea>
 
     </div>
 
@@ -992,15 +999,15 @@ button{
             <select id="levelInput">
 
                 <option value="1">
-                    レベル1
+                    レベル易
                 </option>
 
                 <option value="2">
-                    レベル2
+                    レベルやや易
                 </option>
 
                 <option value="3">
-                    レベル3
+                    レベルやや難
                 </option>
 
                 <option value="4" selected>
@@ -1062,27 +1069,20 @@ button{
 
     <div class="studentPage">
 
-        <div class="studentLayout">
+
+        <div class="studentHeader">
+
+            <div class="brand">
+                <div class="brandText">
+                    国語教材
+                </div>
+            </div>
 
 
-            <!-- =========================
-                 問題
-            ========================== -->
-
-            <div
-                class="studentProblems"
-                id="studentProblems"
-            ></div>
-
-
-            <!-- =========================
-                 右側タイトル・名前
-            ========================== -->
-
-            <div class="rightSidebar">
+            <div class="titleArea">
 
                 <div
-                    class="sidebarTitle"
+                    class="mainTitle"
                     id="studentTitle"
                 >
                     指示語特訓プリント
@@ -1090,31 +1090,37 @@ button{
 
 
                 <div
-                    class="sidebarLevel"
+                    class="levelBadge"
                     id="studentLevel"
                 >
                     レベル難
                 </div>
 
-
-                <div class="sidebarName">
-
-                    <div>
-                        名前
-                    </div>
-
-                    <div class="nameLine">
-                        （　　　　　　　　　）
-                    </div>
-
-                </div>
-
-
-                <div class="copyright">
-                    © 教材やさん
-                </div>
-
             </div>
+
+
+            <div class="nameArea">
+                名前（　　　　　　　　　　　）
+            </div>
+
+        </div>
+
+
+        <div
+            class="studentProblems"
+            id="studentProblems"
+        ></div>
+
+
+        <div class="studentFooter">
+
+            <span>
+                指示語特訓プリント
+            </span>
+
+            <span>
+                国語
+            </span>
 
         </div>
 
@@ -1151,6 +1157,10 @@ button{
         ></div>
 
 
+        <div class="teacherFooter">
+            指示語特訓プリント解説　教師用
+        </div>
+
     </div>
 
 </div>
@@ -1158,7 +1168,6 @@ button{
 
 
 <script>
-
 
 /* =========================================================
    今回のサンプル
@@ -1224,13 +1233,9 @@ function loadSample(){
 function cleanText(text){
 
     return text
-
         .replace(/<br\s*\/?>/gi,"\n")
-
         .replace(/\r\n/g,"\n")
-
         .replace(/\r/g,"\n")
-
         .trim();
 }
 
@@ -1251,10 +1256,8 @@ function getProblemSection(text,number){
         return "";
     }
 
-
     const contentStart =
         start + startMarker.length;
-
 
     let nextMarker = "";
 
@@ -1271,10 +1274,8 @@ function getProblemSection(text,number){
 
     }
 
-
     const end =
         text.indexOf(nextMarker);
-
 
     if(end === -1){
 
@@ -1283,7 +1284,6 @@ function getProblemSection(text,number){
             .trim();
 
     }
-
 
     return text
         .substring(contentStart,end)
@@ -1298,17 +1298,13 @@ function getProblemSection(text,number){
 function parseProblem(section){
 
     let body = "";
-
     let question = "";
-
 
     const bodyIndex =
         section.indexOf("本文");
 
-
     const questionIndex =
         section.indexOf("問題");
-
 
     if(
         bodyIndex !== -1 &&
@@ -1324,7 +1320,6 @@ function parseProblem(section){
                 )
                 .trim();
 
-
         question =
             section
                 .substring(
@@ -1335,11 +1330,9 @@ function parseProblem(section){
     }
     else{
 
-        body =
-            section.trim();
+        body = section.trim();
 
     }
-
 
     return {
         body:body,
@@ -1360,12 +1353,7 @@ function createAnswerGrid(){
     grid.className =
         "answerGrid";
 
-
-    for(
-        let column=0;
-        column<2;
-        column++
-    ){
+    for(let column=0;column<2;column++){
 
         const columnElement =
             document.createElement("div");
@@ -1373,12 +1361,7 @@ function createAnswerGrid(){
         columnElement.className =
             "answerColumn";
 
-
-        for(
-            let row=0;
-            row<10;
-            row++
-        ){
+        for(let row=0;row<10;row++){
 
             const cell =
                 document.createElement("div");
@@ -1392,13 +1375,10 @@ function createAnswerGrid(){
 
         }
 
-
         grid.appendChild(
             columnElement
         );
-
     }
-
 
     return grid;
 }
@@ -1436,8 +1416,22 @@ function createStudentProblem(number,data){
         number;
 
 
+    const headerText =
+        document.createElement("div");
+
+    headerText.className =
+        "problemHeaderText";
+
+    headerText.textContent =
+        "指示語を読み取ろう";
+
+
     header.appendChild(
         numberBox
+    );
+
+    header.appendChild(
+        headerText
     );
 
 
@@ -1589,7 +1583,6 @@ function createStudentProblem(number,data){
         content
     );
 
-
     return card;
 }
 
@@ -1606,11 +1599,9 @@ function getTeacherSection(text){
     const index =
         text.indexOf(marker);
 
-
     if(index === -1){
         return "";
     }
-
 
     return text
         .substring(
@@ -1629,11 +1620,9 @@ function parseTeacher(text){
     const teacher =
         getTeacherSection(text);
 
-
     if(!teacher){
         return [];
     }
-
 
     return teacher
 
@@ -1686,12 +1675,10 @@ function createTeacherProblem(
 
     content.textContent =
         text
-
             .replace(
                 /^\s*[①②③]\s*/,
                 ""
             )
-
             .trim();
 
 
@@ -1702,7 +1689,6 @@ function createTeacherProblem(
     card.appendChild(
         content
     );
-
 
     return card;
 }
@@ -1718,7 +1704,6 @@ function makePrint(){
         document.getElementById(
             "inputText"
         ).value;
-
 
     text =
         cleanText(text);
@@ -1755,44 +1740,24 @@ function makePrint(){
         title;
 
 
-    /*
-      レベル4は「レベル難」
-    */
-
-    let levelText = "";
-
-    if(level === "4"){
-
-        levelText = "レベル難";
-
-    }
-    else if(level === "1"){
-
-        levelText = "レベル易";
-
-    }
-    else if(level === "2"){
-
-        levelText = "レベルやや易";
-
-    }
-    else{
-
-        levelText = "レベルやや難";
-
-    }
+    const levelNames = {
+        "1":"レベル易",
+        "2":"レベルやや易",
+        "3":"レベルやや難",
+        "4":"レベル難"
+    };
 
 
     document.getElementById(
         "studentLevel"
     ).textContent =
-        levelText;
+        levelNames[level];
 
 
     document.getElementById(
         "teacherLevel"
     ).textContent =
-        levelText;
+        levelNames[level];
 
 
     /* ---------- 問題数 ---------- */
@@ -1811,7 +1776,6 @@ function makePrint(){
         document.getElementById(
             "studentProblems"
         );
-
 
     studentProblems.innerHTML = "";
 
@@ -1848,7 +1812,6 @@ function makePrint(){
             )
 
         );
-
     }
 
 
@@ -1860,7 +1823,6 @@ function makePrint(){
         document.getElementById(
             "teacherProblems"
         );
-
 
     teacherProblems.innerHTML = "";
 
@@ -1909,7 +1871,6 @@ window.addEventListener(
             sampleText;
 
         makePrint();
-
     }
 );
 
