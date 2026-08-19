@@ -315,7 +315,6 @@ button{
     margin-top:7mm;
 
     writing-mode:vertical-rl;
-    text-orientation:mixed;
 
     font-size:13px;
     font-weight:bold;
@@ -359,25 +358,39 @@ button{
 
 
 /* =========================================================
-   著作権
+   著作権・ロゴ
 ========================================================= */
 
 .copyright{
 
     position:absolute;
 
-    right:8mm;
-    bottom:3mm;
+    right:7mm;
+    bottom:2mm;
 
-    font-size:8px;
-
-    color:#555;
-
-    writing-mode:horizontal-tb;
-
-    white-space:nowrap;
+    width:18mm;
 
     z-index:20;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    line-height:0;
+}
+
+.copyright img{
+
+    display:block;
+
+    width:18mm;
+    height:auto;
+
+    max-width:100%;
+
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
 }
 
 
@@ -922,6 +935,12 @@ button{
         -webkit-print-color-adjust:exact;
         print-color-adjust:exact;
     }
+
+    .copyright img{
+
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+    }
 }
 
 </style>
@@ -988,7 +1007,7 @@ button{
 
 ② 正解例・・・
 根拠箇所・・・
-指導ポイント ...
+指導ポイント・・・
 "></textarea>
 
     </div>
@@ -1076,7 +1095,6 @@ button{
 </div>
 
 
-
 <!-- =====================================================
      印刷領域
 ========================================================= -->
@@ -1135,14 +1153,16 @@ button{
         </div>
 
 
-        <!-- 著作権表示 -->
+        <!-- 著作権・ロゴ -->
 
         <div class="copyright">
-            © 教材やさん
+            <img
+                src="kyouzai-logo.png"
+                alt="教材やさん"
+            >
         </div>
 
     </div>
-
 
 
     <!-- ===============================
@@ -1180,7 +1200,6 @@ button{
     </div>
 
 </div>
-
 
 
 <script>
